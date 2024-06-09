@@ -1,0 +1,123 @@
+% we include the glossary here (frontmatter is included with \input, so this command is as if it was in main.tex)
+%\input{frontmatter/glossary} % the command makenoidxglossaries requires that the glossary entries must be defined in the preamble (to be compatible with overleaf)
+
+\frontmatter % Use roman page numbering style (i, ii, iii, iv...) for the pre-content pages
+
+\pagestyle{plain} % Default to the plain heading style until the thesis style is called for the body content
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\maketitlepage
+
+%----------------------------------------------------------------------------------------
+%	DEDICATION 
+%----------------------------------------------------------------------------------------
+%
+%\dedicatory{For/Dedicated to/To my\ldots}
+\begin{dedicatory}
+
+something...
+
+\end{dedicatory}
+
+%----------------------------------------------------------------------------------------
+%	ABSTRACT PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{abstract}
+
+% here you put the abstract in the main language of the work.
+
+Abstract body text.
+
+\end{abstract}
+
+\begin{abstractotherlanguage}
+% here you put the abstract in the "other language": English, if the work is written in Portuguese; Portuguese, if the work is written in English.
+
+Resumo em Português
+
+\end{abstractotherlanguage}
+
+%----------------------------------------------------------------------------------------
+%	ACKNOWLEDGEMENTS (optional)
+%----------------------------------------------------------------------------------------
+
+\begin{acknowledgements}
+
+something...
+
+\end{acknowledgements}
+
+%----------------------------------------------------------------------------------------
+%	LIST OF CONTENTS/FIGURES/TABLES PAGES
+%----------------------------------------------------------------------------------------
+
+\tableofcontents % Prints the main table of contents
+
+\listoffigures % Prints the list of figures
+
+\listoftables % Prints the list of tables
+
+\iflanguage{portuguese}{
+\renewcommand{\listalgorithmname}{Lista de Algor\'itmos}
+}
+\listofalgorithms % Prints the list of algorithms
+\addchaptertocentry{\listalgorithmname}
+
+
+\renewcommand{\lstlistlistingname}{List of Source Code}
+\iflanguage{portuguese}{
+\renewcommand{\lstlistlistingname}{Lista de C\'odigo}
+}
+\lstlistoflistings % Prints the list of listings (programming language source code)
+\addchaptertocentry{\lstlistlistingname}
+
+
+%----------------------------------------------------------------------------------------
+%	ABBREVIATIONS
+%----------------------------------------------------------------------------------------
+%\begin{abbreviations}{ll} % Include a list of abbreviations (a table of two columns)
+%%\textbf{LAH} & \textbf{L}ist \textbf{A}bbreviations \textbf{H}ere\\
+%%\textbf{WSF} & \textbf{W}hat (it) \textbf{S}tands \textbf{F}or\\
+%\end{abbreviations}
+
+%----------------------------------------------------------------------------------------
+%	SYMBOLS
+%----------------------------------------------------------------------------------------
+
+\begin{symbols}{lll} % Include a list of Symbols (a three column table)
+
+$d$ & something.. & \si{\meter} \\
+
+\addlinespace % Gap to separate the Roman symbols from the Greek
+
+$\phi$ & complex phase & \si{\radian} \\
+
+\end{symbols}
+
+
+
+%----------------------------------------------------------------------------------------
+%	ACRONYMS
+%----------------------------------------------------------------------------------------
+
+\newcommand{\listacronymname}{List of Acronyms}
+\iflanguage{portuguese}{
+\renewcommand{\listacronymname}{Lista de Acr\'onimos}
+}
+
+%Use GLS
+\glsresetall
+
+%\printglossary[title=\listacronymname,type=\acronymtype,style=long]
+\printnoidxglossary[title=\listacronymname,type=\acronymtype,style=long] % command compatible with overleaf
+
+%----------------------------------------------------------------------------------------
+%	DONE
+%----------------------------------------------------------------------------------------
+
+\mainmatter % Begin numeric (1,2,3...) page numbering
+\pagestyle{thesis} % Return the page headers back to the "thesis" style

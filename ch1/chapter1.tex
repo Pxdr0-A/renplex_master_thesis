@@ -1,0 +1,54 @@
+% \acrlong{AI}, which is abbreviated \acrshort{AI}
+% or \gls{AI}
+
+% Chapter 1
+% 
+\chapter{Introduction}
+\label{chap:Chapter1}
+
+This chapter will give the reader some context on what will be the main subject of this Master Thesis. The present work will be an attempt to solve a problem, presented by the literature, which will be clearly defined alongside with the main objectives.
+
+\section{Contextualization}
+\label{sec:chap1_context}
+% contexto e problema descrição da estrutura
+
+In this Master Thesis, we will explore a type of Neural Networks referred to as \gls{CVNN}. These are a computing systems, based on the way a biological brain operates, driven by data where the only catch that distinguishes it from the commonly known Neural Networks (or, for the sake of this work, \gls{RVNN}), is the fact that they incorporate complex numbers\footnote{Any number that belongs to the mathematical domain $\mathbb{C}$.} as their trainable or non-trainable parameters, whatever they may be \parencite{bassey2021survey, monning2019deep, clarke1990definition}. This can range from weights, biases or activation functions, but also, as a consequence, the dynamics and operations involved inside the layers and even the training process itself, changes substantially \parencite{bassey2021survey}.
+
+\gls{CVNN} occurred first when researches wondered about the representation of the data given to the network \parencite{bassey2021survey}. Let us suppose that one wants to build a machine learning model, based on Neural Networks, on top of a special set of data related to applications, for instance, in robotics, radar or telecommunications. Depending on the problem, such set of data, is usually more effectively represented with complex numbers so how could the data be inserted for training and prediction in the \gls{RVNN}? This is where \gls{CVNN} come into play with a promising application in these domains \parencite{bassey2021survey, hirose2012complex}.
+
+Complex numbers can be represented in the euclidean form,
+
+\begin{equation}
+	z = x + iy,
+\end{equation}
+where $ \Re\{z\} = x $, $ \Im\{z\} = y $ are respectively the real and imaginary component of $ z $, and $ i $ is the imaginary unit. However, they can also be represented in polar form,
+
+\begin{equation}
+	z = \rho e^{i \phi},
+\end{equation}
+where $ e $ is the Euler constant, $ \rho = \sqrt{x^2 + y^2} $ is the absolute value and $ \phi = \arctan\left( \frac{y}{x} \right) $ is the phase of $ z $.  Specially in this polar representation, a $ z $ number can represent an electromagnetic signal\footnote{This can be relevant for instance in fiber-optic or wireless communications.} with an amplitude of $ \rho $, and a phase $ \phi = \phi(t) = \omega t + \phi_0 $, being $ \phi_0 $ the initial phase. By having the time samples of a signal, one can perform tasks with a \gls{CVNN} such as finding the amplitude, frequency or initial phase, attenuation parameters when an electromagnetic source goes through obstacles, and many more \parencite{hu2019signaldeterconcentr}. Another example of a task can be MRI fingerprinting, where the data is inherently complex-valued  \parencite{ma2013magnetic, virtue2017mribettercvnn}. (examples of tasks where CVNN excels)
+
+All these extra nuances may be able to represent, as it was stated by \textcite{hirose2012complex}, a "Super-Brain by Enrichment of the Information Representation". As we will see, the engineering of complex activation functions, the various learning methods available for a \gls{CVNN}, are just one of the few options involved that do not exist in the classical \gls{RVNN} but have potential to add an extra push to solve more difficult tasks with higher performances.
+
+\section{Problem Definition}
+\label{sec:chap1_definition}
+
+These networks were explored in a more theoretical level around 2012, and recently (2018 on-wards) some successful applications have been emerging \parencite{bassey2021survey}. Nevertheless, there is still a vast untapped territory in these \gls{CVNN} specially when it comes to the development tools and libraries that allow one to explore such models.
+
+In that regard, there is a small number of tools and the already existent ones do not provide a solid foundation to model \gls{CVNN} with high customization. Some were also typically discontinued in this state with no further updates. On this small list, there are also tools that are not available to the public as an open-source project which would be a drawback to the computer science community given the already existence of extremely popular and reliable \gls{RVNN} open-source tools.
+
+\subsection{Objectives}
+
+The objective of this master thesis is divided into two consecutive sub-objectives. Firstly, is to build a library using the \href{https://www.rust-lang.org/}{Rust} programming language capable of modeling these \gls{CVNN} with a high level of customization. This library will be able to model \gls{CVNN} but also \gls{RVNN}. Secondly, the functionalities of these library will be explored specifically in the comparison of performance between \gls{CVNN} and \gls{RVNN} and even up-against other popular libraries that model \gls{RVNN} such as \href{https://www.tensorflow.org/}{TensorFlow} and \href{https://pytorch.org/}{PyTorch}. 
+
+To meet this two sub-objectives, there will be a set of tasks involved. On one hand, to allow for this customization, the library should ensure the ability to specify the precision of the calculations (32-bit or 64-bit float), provide a set of activation functions and layers to scaffold a personalized network and have at least a statically viable way to add programatically new layers with some special logic. Ensuring these requirements will allow us to tackle the problem of the restrict \gls{CVNN} modeling that tools nowadays provide and match with those of the already existent \gls{RVNN} tools in the open-source community.
+
+On the other hand, to provide a concise and meaningful comparison between \gls{CVNN} and \gls{RVNN}, the proposed pipeline will go as follows:
+
+\begin{itemize}
+    \item Since the library will allow for modeling both \gls{CVNN} and \gls{RVNN}, the implemented complex back-propagation algorithm implemented, will be the analogous of the classical back-propagation algorithm. Therefore, both models are going to be tested inside the library with firstly an equivalent amount of parameters\footnote{This does not mean with the same architecture, because, a complex number is defined on a plane as opposed to a real number which is defined on a line. In a \gls{CVNN} exists twice as more parameters when compared to a \gls{RVNN} not counting with the different hyper-parameters and options involved. For example, parameters that might exist in the complex activation functions, possible complex learning rates and options within the calculation of the inference results. This is the reason why no \gls{CVNN} can have the same architecture as a \gls{RVNN} with the same amount of parameters.} and then with an equivalent architecture.
+    \item Afterwards, the same procedure will apply when comparing the library's \gls{CVNN} models with \gls{RVNN} models from open-source tools. First trying to match the amount of parameters, and then applying a similar architecture. Performance times will also be evaluated in both steps however, due to the extreme complexity of the subject and restricted available time, there will not be a great investment in time optimization of the involved computational tasks.
+    \item Some special tasks where \gls{CVNN} excel, that will be discussed in the State-of-the-art chapter, will be considered to demonstrate that the developed models in the library are working as intended.
+\end{itemize}
+
+This pipeline will ensure a fair comparison and demonstrate the usability of these \gls{CVNN}, as a consequence, hopefully tackling the problem of scarcity in viable \gls{CVNN} tools in the open-source community for research purposes and real-world applications.

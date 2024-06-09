@@ -1,0 +1,273 @@
+% Chapter 2
+
+\chapter{State-of-the-Art}
+\label{sec:chap1_sota}
+
+For this \gls{SOTA}, we will not dive to deep in the literature since we just aim to build a library that modulates \gls{CVNN}. Inasmuch, we will start by going through some relevant applications for \gls{CVNN} which will give us some insights on the data that our library should be able to handle. Additionally, it exists in the literature a vast number of approaches to develop a \gls{CVNN}, for such, we will dive in the mathematical theory surrounding this topic. Lastly, we will address the already existent libraries to help us define what the mentioned library will bring of new to the research community.
+
+The search was performed by extracting the most relevant studies for the development of the library using the string "complex-valued neural network" as the main keywords. It consisted in finding papers with popular applications that have the potential of being applied in the library, as well as, theory that can be used for defining the architecture of a \gls{CVNN}. Some extremely advanced or \gls{SOTA} procedures for modeling \gls{CVNN} were kept out of this work, since the intention is just to design a simple library that can scale for common \gls{CVNN} applications. Databases included in our search are: \href{https://scholar.google.com/}{Google Scholar} \href{https://ieeexplore.ieee.org/Xplore/home.jsp}{IEE Xplore}, \href{https://arxiv.org/}{arxiv.org}, \href{https://link.springer.com/}{Springer Link}, \href{https://www.sciencedirect.com/}{Science Direct}.
+
+\section{Applications}
+The majority of \gls{CVNN} applications come from the fact that the training data is written in the complex domain, while the rest relies on strategies to cast the data from the real domain into the complex domain. We will subdivide this section into the various areas of application and comment on how they are addressed.
+
+\subsection{Signal Processing}
+
+Signal processing was arguably the first application found for the topic at hand \parencite{bassey2021survey, hirose2012complex}. Since this is a vast field, for simplicity, we will divide in applications related to Wireless Communications, Audio and RADAR. Although, the nature of the data used is similar between some fields, there are some nuances to it.
+
+\subsubsection{Wireless Communications}
+Electromagnetic waves that constitute the signals present in wireless communications, are more mathematically accurate when represented by complex numbers. If a certain problem arises that can be solved by training a neural-based model, \gls{CVNN} can be considered. 
+
+One of the focus on this field is using \gls{CVNN} for signal coherence \parencite{hirose2012cohersignal, wu2017singalcohercvnn}. It consists in providing the time signature, for instance, an electromagnetic signal to the inputs of the \gls{CVNN}, with the objective the reconstruct the coherent (well defined phase) source signal, with as little Signal-to-Noise-Ratio as possible. \textcite{hirose2012cohersignal} describes a generalization for this problem and demonstrates that \gls{CVNN} can achieve better performance than its real counter-part, whereas \textcite{wu2017singalcohercvnn} go deeply in the specific learning method to be applied for these cases.
+
+The development of signal equalizers is also a field where \gls{CVNN} provides satisfactory solutions \parencite{uncini1999equalizerold, cheolwoo1998oldeuqalizer, hong2014equalizerhammer, liu2017equalizercvnn}. Such procedure, aims to mitigate the cross-modulation effects between the in-phase and quadrature-phase of the traveling signal, and it has been addressed since the late 90's \parencite{uncini1999equalizerold, cheolwoo1998oldeuqalizer}. This application goes in a similar fashion to the one described in the previous paragraph by \textcite{liu2017equalizercvnn}. 
+
+Channel estimation is also an important aspect of wireless communications \parencite{murata2015cvnnforsignalchapter, yuan2019channel}. In this case, studies aim to know/classify a certain channel's characteristics where yet again, the \gls{CVNN} is going to receive the exchange signal in the complex domain. In the case of \parencite{yuan2019channel}, authors implement an auto-encoder architecture where a \gls{CVNN} should be able to support. Alongside channel estimation, \gls{CVNN} managed to surpass Real deep learning models on the task of specific emitter identification \parencite{wang2021emmiteridcvnn}.
+
+With the introduction of the 5G mobile network, a recent study shows an application \gls{CVNN} in the massive multiple-input multiple-output (MIMO) \parencite{tiba2023signalmimocvnn} . Where the motivation lies purely on the fact that current MIMO detection is done by \gls{RVNN} which do an additional step of converting the complex data, that the signal naturally possesses, into real data. Not only there is a loss of information, but also, unnecessary computational demand. Study shows that, by using Wirtinger Calculus \parencite{brandwood1983complex}, a \gls{CVNN} can provide better performance in when compared to current detectors and reduce the computational cost \parencite{tiba2023signalmimocvnn}. Some equally relevant studies precede this recent one, such as, \parencite{marseet2017firstmimo} where authors also use the architecture that was later used replicated by \parencite{yuan2019channel} in the channel estimation problem.
+
+Generic studies on signal processing, have also been conducted more than 20 years ago \parencite{kim2000envelope, kim2002perceptron}, where the author experimented with specific activation functions that improve the performance of \gls{CVNN} signal processing capabilities. Still, some more recent studies pick up from this point for further improvements and extensions \parencite{scardapane2018complex}.
+
+\subsubsection{Audio}
+Regarding audio analysis with \gls{CVNN}, some applications emerge in the field of speech recognition \parencite{hayakawa2018speech}. This application comes from the direct translation of incoming sound/wave signals from speech, which are already, by default, encoded in complex numbers with an amplitude and a phase. The speech signal is not analyzed in a recursive way, but a batch of the signal is analyzed to decode possible existent speech within it and a \gls{CVNN} do outperforms a \gls{RVNN} in the task \parencite{hayakawa2018speech}. \textcite{hu2020dccrn}, also approach the topic of analyzing speech however, in this case the task is not to recognize, but to enhance it. Similar to the channel estimation or specific emitter identification \parencite{wang2021emmiteridcvnn}, here a speech signal is introduced with noise and a \gls{CVNN} is tasked to enhance the quality of the signal, which is in fact able to achieve satisfactory results.
+
+The above problem of enhancing an audio signal was also applied for the mp3 format in \parencite{al2012mp3enhance}. Here the objective was to recover an encoded signal, as close as possible, to the unmodified which where with the right architecture, one can get more suitable results when compared to an equivalent \gls{RVNN} \parencite{al2012mp3enhance}.
+
+For the curious reader, \gls{CVNN} also found an application in music by means of a classification task of retrieving meta-information about a song \parencite{kataoka1998music}, or memorizing a sequence of notes of a melody \parencite{kinouchi1996memorization}. In spite of \parencite{kataoka1998music} using recurrent neural networks, the procedures is similar when compared to real numbers.
+
+\subsection{Image Processing \& Computer Vision}
+
+When it comes to Image processing and computer vision models, \gls{CVNN} also exhibit promising results, however, the way they handle data is can different from the signal processing procedure.
+
+In satellite imagery as in the example of f TerraSAR-X datasets, satellites can provide aside from a normal image, information about the polarization of the light received \parencite{gleich2018complex}. This in itself, can be represented in the complex domain together the classical image and feed onto a \gls{CVCNN}. Nevertheless in \parencite{gleich2018complex} the authors implement a \gls{CVCNN} with substantial results given the nature of the data.
+
+However, regarding data pre-processing for \gls{CVNN}, not all data has an explicit complex notation associated. \textcite{liu2014handgestures} created a model for hand gesture recognition, where the data is initially represented in pixels. The images are pre-processed with a computer vision tool to get the main features out of the image, such as angles between fingers, length, etc. This coordinates are then written in the complex plane where they can finally be processed by a \gls{CVNN} with a performance that matches current applications \parencite{liu2014handgestures}. Although not with the same detail, another work pre-dated this same problem \parencite{hafiz2011handgesturecvnn}.
+
+Other studies, this time on facial recognition on distinguishing between the two genders. Still features are extracted from an image with computer vision tools, however, \textcite{amilia2015face} perform a mapping that defines $ 1 + 0.5\imath $ as male and $ 0 + 0.5\imath $ as female instead of the real typical values of $0$ and $1$.
+
+In deep learning for image recognition, the typical \gls{CVNN} pipeline is to extract the features of the image and find some mapping to the complex plane, with this features \parencite{gu2018convcvnnvgg, chiheb2017deep}. One simple example can be for instance, getting the intensity of the transitions and respective angles with a Sobel Operator \parencite{sobel2014operator}, and the intensities can be mapped to the absolute value of the complex number, and the angles to the phase of the complex number. Another option is to compress the features since a complex number can encode two numbers, the number of inputs can be resized to $ N/2 $ where $ N $ is the number of real inputs \parencite{gu2018convcvnnvgg}. \gls{CVNN} also found its use in a similar problem involving crowd counting \parencite{matlacz2018crowd}, where one can divide divide the complex components in features as stated previously or just give a default value to the imaginary part \parencite{chiheb2017deep, matlacz2018crowd}.
+
+In the image processing realm, \gls{CVNN} can also be used to identify images that are blurred \parencite{aizenberg2008blurdetect, aizenberg2011blurbetter} in a similar fashion but without requiring deep learning models.
+
+To wrap up this selection of applications, it is important to know that \gls{CVNN} can also be used outside classification tasks like the ones we have reviewed up until now. A very recent study by \textcite{luo2024imagecompressalgocvnn} provides a solution for compressing images based on \gls{CVNN} with greater robustness against adversarial attacks when compared to \gls{RVNN}.
+
+\subsection{Health}
+
+\gls{CVNN} also show up in the health industry. Applications such as Electroencephalography (EEG) and Medical Resonance Imaging (MRI) where both signal can be divided in a real and an imaginary component. In the studies \parencite{du2023hybrid, zhang2017sleepsignal, peker2016eegsignal} the authors explore possible usages in EEG related diagnosis. While \parencite{du2023hybrid} dives in a more generic study on trying to address if \gls{CVNN} are viable for EEG applications, \parencite{zhang2017sleepsignal, peker2016eegsignal} take a more pragmatic approach in trying to apply it to classifying sleep stages, and epilepsy diagnosis, respectively. In the former, there is the use of the complex convolution (will be later addressed) operation given the initial complex signal, where authors were able to match human experts performance \parencite{zhang2017sleepsignal}. In the latter, authors consider the relevance of the EEG as the gold standard for epilepsy diagnosis \parencite{pillai2006epi} to create a model that performs such evaluation, however, as opposed to the previous procedure, they do not rely on convolutional layers. They implement a simple dense \gls{CVNN} with k-folds cross-validation to accurately be used for epilepsy diagnosis \parencite{peker2016eegsignal}.
+
+In the MRI scenario, \parencite{cole2020analysis, cole2021analysis}, a cross-section of an image is defined in the complex plane with polar coordinates. The reconstruction process reduces significantly the time patients need to be still for long periods of time and in the authors explore complex convolutional layers that enable to perform this reconstruction task. Being the input a matrix of complex values, \gls{CVNN} were able to achieve higher quality of image reconstruction \parencite{cole2020analysis, cole2021analysis}. Still in the topic of MRI, the task of indentifying tissue parameters, based on cross-sections, was also tackled with \gls{CVNN} in \parencite{virtue2017mribettercvnn} and outperformed \gls{RVNN} purposely designed for the task.
+
+It is of high importance to note that operations such as the Fast Fourier Transform, can be implemented in \gls{CVNN} where it is able to analyze, for example, medical images regarding mammography for digital watermarking \textcite{olanrewaju2011watermarkmed}.
+
+\subsection{Other Applications}
+Interestingly enough, \gls{CVNN} found it way onto stock prediction \parencite{jia2018stockpredcvnn, wang2017cvnnstockprediction}. Stocks data is not written in the complex domain, therefore, authors described a method casting those values in a unitary complex value defining a phase based on the real data point, maximum value of the set, and minimum value of the set \parencite{wang2021emmiteridcvnn}. Both procedures also used different optimization algorithms for updating the weights, respectively,  Particle Swarm Optimization \parencite{eberhart1995particle} and Cuckoo search \parencite{yang2014cuckoo}.
+
+There is also an entire Thesis on using deep complex-valued recurrent neural networks on the topic \parencite{monning2019deep}.
+
+
+\section{Theory Behind \gls{CVNN}}
+Multiple approaches have been taken into considerations when it comes to designing a \gls{CVNN} and many references have already dived deep into how should one structure a \gls{CVNN} depending on the task at hand. I will divide this section into two sub-sections. First where I will talk about how the literature has approached the problem of defining a \gls{CAF} and how can the back-propagation be implemented in these networks. In the \gls{CBP} algorithm I am also going to include some notes based on the literature, regarding the gradient descent in this scenario.
+
+Related to a \gls{CVNN} library \parencite{barrachina2023theory}, provides also a detailed explanation on how to implement such networks code-wise, as well as, \parencite{abdalla2023newtheory} also provides a great and up-to-date summary on the many possibilities to design a \gls{CVNN}. We will rely later down the line on these studies for development purposes.
+
+\subsection{Complex Activation Function}
+The first steps onto the development of  a \gls{CVNN}, targeted \gls{CAF} \parencite{clarke1990definition, georgiou1992fullfunc}. There is an inherent problem of this neural networks in the fact that on providing a complex argument to a e.g. hyperbolic tangent function typically used in \gls{RVNN}, one would observe that it is not contained/limited in the complex domain. \textcite{clarke1990definition} proposed a fully complex function  that was confined with a oscillatory behavior given by,
+
+\begin{equation}
+	B(z) = e^{\imath \theta} \dfrac{ z - s }{ 1 - \alpha z },
+\end{equation}
+where $ \theta $ is part of a generic phase rotation, $ s $ a bias parameter and $ \alpha $ some complex constant. Nonetheless, this function, although proving the possible to build a \gls{CVNN}\footnote{This is because the function is differentiable and the back-propagation algorithm would apply exactly the same \parencite{clarke1990definition} as a \gls{RVNN}.}, it does not provide a quick computational differentiation, i.e. derivative that can be written as function of the original one. In \parencite{georgiou1992fullfunc}, the authors went in more detail regarding the conditions for defining a \gls{CAF} and even applied it in a \gls{CBP} similar to the real counter-part by computing its partial derivatives, however, under the same computational efficiency conditions. Such \gls{CAF} reads,
+
+\begin{equation}
+	f(z) = \dfrac{ z }{ c - \frac{1}{r} \left| z \right| },
+\end{equation}
+with $c$ and $r$ being some real numbers.
+
+To tackle the problem \textcite{benvenuto1992firstback} suggested split-type activation function. This one consists in applying a well known real activation function like Sigmoid to both the real and imaginary part separately (split-type A) or the amplitude and phase (split-type B) \parencite{abdalla2023newtheory}, regardless, such function does provide the much needed quick differentiation but it does not represent a fully \gls{CAF} with the possibility to incorporate correlations between real and imaginary component just like previous ones. By expanding this reasoning, one can also define a \gls{ReLU} by considering the activation condition being, for instance, when the real an imaginary parts, are positive \parencite{scardapane2020newactfuncs}. This functions were later referred to as non-analytical \parencite{scardapane2020newactfuncs}, and those that involved the necessity to compute absolute values, also fall in this category.
+
+Above we have described the main core types of activation in the complex domain, however authors in \parencite{scardapane2020newactfuncs} describe the usage of these so called \gls{KAF} that when incorporated in a \gls{CVNN}, show better  results when compared to \gls{RVNN} for standard dataset like MINIST \parencite{scardapane2020newactfuncs, lecun1998mnist}. To avoid getting too technical in this \gls{SOTA}, broad terms, \gls{KAF} are constructed with a kernel that is easily differentiable and limited in a weighted sum along a grid. Typical  \gls{KAF} would read as,
+
+\begin{equation}
+	g(z) = \sum_{n=1}^{D}\sum_{m=1}^{D} \alpha_{n,m} \kappa_{\mathcal{C}}\left( z, d_n + \imath d_m \right),
+\end{equation}
+with $D$ being the dimension of the grid, $\kappa_{\mathcal{C}}$ the kernel (can be for instance a Gaussian function), ${d_n, d_m}$ are parameters of the grid and $\alpha_{n,m}$ the mixing parameters \parencite{hofmann2008kernel, liu2011kernel}.
+
+Another non-analytical \gls{CAF} worth noting in this thesis is the Cardioid Function \parencite{virtue2017mribettercvnn}. It is easily differentiable to help in the \gls{CBP} and carries a simple expression of basic computation, given by,
+
+\begin{equation}
+	f(z) = \dfrac{1}{2} \left( 1 + \cos(\arg(z)) \right) z. 
+\end{equation}
+
+\subsection{Complex Learning Procedure}
+
+In later sections, a more detailed walk-through on the \gls{CBP} algorithms, to be used in this master thesis, will be provided as well as other possible learning alternatives. For this section, we will just briefly discuss some of the already available options in the literature.
+
+\subsubsection{Core Procedures}
+
+One can divide into two main topics, Gradient-based and a non-gradient based learning \parencite{bassey2021survey, abdalla2023newtheory}.
+
+With the gradient approach, the objective is, as known from the classical neural networks, to compute the gradient of the cost/loss function. The loss can be calculated in the complex domain for a single training sample like so,
+
+\begin{equation}
+	\mathcal{L} = \sum_n \left| a_n - t_n  \right| ^2,
+\end{equation}
+where $a_n \in \mathcal{C}$ represents the activation on the last layer per unit $n$ and $t_n \in \mathcal{C}$ the desired output from the training sample.
+
+The back-propagation can be performed with almost the same procedure as in a \gls{RVNN}, however, one can either analyze the adjustment to the weights at the real and imaginary level individually (split \gls{CBP}) or at the weight as an entire complex number (split \gls{CBP}) since they obey the same differential properties \parencite{li2006backpropold, hirose2012complex, bassey2021survey, abdalla2023newtheory}. Moreover, one must recognize the foundation required to reach the complex gradient of the loss within the Wirtinger Calculus \parencite{wirtinger1927formalen}. Considering also that the loss function maps from $\mathcal{C}$ $\mathcal{R}$ the expression of the gradient can simplify to \parencite{bassey2021survey, abdalla2023newtheory},
+
+\begin{equation}
+		\nabla_z \mathcal{L}(z) = 2\dfrac{\partial \mathcal{L}}{\partial \overline{z}}
+\end{equation}
+where $\overline{z}$ representing the complex conjugate. Up this point on, the algorithm is same as the \gls{RVNN} one.
+
+With the non-gradient based approach, one must start from the premise that the network implements a phasor-like fully \gls{CAF} like the Cardioid. The error correction rule is defined and discussed in \parencite{aizenberg1973multivalued} and does not involve computing the gradient. For a simple feed-forward \gls{CVNN}, the expression for the error correction can be found in \parencite{abdalla2023newtheory}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Finish your refs!!! And terminate this with the resuts and ethics%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Further Considerations}
+
+The mentioned core procedures already underwent some improvements, or simply new additional  methods have been adopted. Among them, \textcite{liu2017efficientweightupdate} proposed a more efficient algorithm for updating the weights of a \gls{CVNN}. It was achieved by separating the training method of the input layer, from the output layer. In the latter, the update to the output neuron's weights is first calculated with the least squares method. Getting this result, error is propagated with \gls{CBP} using Gradient Decent to  the input's weights. Authors reported a better convergence and generalization capabilities \parencite{liu2017efficientweightupdate}.  
+
+Modifications to the learning algorithm with momentum optimization or even the Adam optimizer, also provide same benefits as in the \gls{RVNN} \parencite{kotsovsky2020new, kingma2014adam}. The same applies for adaptive complex-valued step sizes in gradient descent, however, this procedure can only be applied to fully \gls{CVNN} \parencite{zhao2023ortogradientcvnn, weijing2024gradientdescentcvnn}.
+
+Convolution operation is well defined in the complex plain and, just like in the \gls{RVNN}, calculations can be parallelized. In spite of the slight increase in complexity, \gls{CVCNN} out-perform a \gls{CNN} \parencite{guberman2016complex, chatterjee2022cvnncomparison}.
+
+Last but not least, if designed properly, \gls{CVNN}  have been shown to be more robust than a its real counter-parts, specially in signal processing related applications \parencite{neacsu2022protectcvnn}.
+
+\section{Exploration of Existent Libraries}
+As stated by \parencite{bassey2021survey}, there is the need for libraries targeted for complex-valued computations such as in \gls{CVNN}, hence the objective of this master thesis. Very few full-fledged libraries or toolboxes can be found in the literature that modulate \gls{CVNN}. To the best of my knowledge, I was only able to collect the following references: \parencite{trabelsi2017tool, cruz4252610rosenpy, peker2015tool, j_agustin_barrachina_2022_7303587, dramsch2019complex, barrachina2023theory}.
+
+Within this group one finds, in its majority, libraries that are built on top of an already existent machine learning framework like \href{https://keras.io/}{Keras}. \parencite{trabelsi2017tool, cruz4252610rosenpy, j_agustin_barrachina_2022_7303587, dramsch2019complex, barrachina2023theory} all use \href{https://keras.io/}{Keras} / \href{https://www.tensorflow.org/}{TensorFlow} as a back-end which may limit the amount of available operations and architectures, further performance optimizations and efficient memory management, given the unique approaches, as observed from the current \gls{SOTA}, that \gls{CVNN} may require. Additionally, all of these tools have not been updated since 2 years and were developed typically for a one-time-usage.
+
+\textcite{peker2015tool} has also developed a tool for signal process, nonetheless, from \parencite{peker2016eegsignal} it suggests that was built from this specific usage.
+
+
+\section{Data Protection \& Ethical Aspects}
+Given the nature of the objective of this thesis, it is not going to involve managing data of confidential or bio-metric related that might invoke any privacy policy. Initially, to test simple models of the library, a synthetic clustering dataset, with non-chaotic data, is going to be used and future datasets will consist in the MINIST \parencite{lecun1998mnist} and a signal related datasets either simulated of from a public dataset like \href{https://speed.pub.ro/downloads/music-datasets/}{music-datasets}.
+
+
+
+
+
+
+
+%-------------------------------------------------------------------------------------------------------------------------------
+% unumbered equations: \[ a^{2}=4 \]
+% \code{main.tex}
+% \parencite{Reference1} or \parencite{Reference2, Reference1}, \autocite{Reference3}, \textcite{Reference2}
+
+%--------------------------------------------------------------------------------------------------------------------------------
+
+%\section{Ignore Following Sections (these are tests)}
+%
+%\begin{table}[ht]
+%    \caption{The effects of treatments X and Y on the four groups studied.}
+%    \label{tab:treatments}
+%    \centering
+%    \begin{tabular}{l l l}
+%        \toprule
+%        \tabhead{Groups} & \tabhead{Treatment X} & \tabhead{Treatment Y} \\
+%        \midrule
+%        1 & 0.2 & 0.8\\
+%        2 & 0.17 & 0.7\\
+%        3 & 0.24 & 0.75\\
+%        4 & 0.68 & 0.3\\
+%        \bottomrule\\
+%    \end{tabular}
+%\end{table}
+%
+%
+%\section{Figures}
+%
+%\begin{figure}[ht]
+%    \centering
+%    \includegraphics[scale=0.2]{ch2/assets/electron}
+%    \caption[An Electron]{An electron (artist's impression).}
+%    \label{fig:electron}
+%\end{figure}
+%
+%
+%\section{Algorithms}
+%
+%\begin{algorithm}[b]
+%    \caption{Euclid’s algorithm}
+%    \label{alg:euclid}
+%    \begin{algorithmic}[1]
+%        \scriptsize
+%        
+%        \State \textbf{Input}: Two integer numbers, $a$ and $b$
+%        \State \textbf{Output}: GCD of $a$ and $b$
+%        \State
+%        \Procedure{Euclid}{$a,b$}\Comment{The GCD of $a$ and $b$}
+%        \State $r\gets a\bmod b$
+%        \While{$r\not=0$}\Comment{We have the answer if $r$ is $0$}
+%        \State $a\gets b$
+%        \State $b\gets r$
+%        \State $r\gets a\bmod b$
+%        \EndWhile
+%        \State \textbf{return} $b$\Comment{The GCD is $b$}
+%        \EndProcedure
+%    
+%    \end{algorithmic}
+%\end{algorithm}
+%
+%\begin{center}
+%    \begin{minipage}{0.7\linewidth}
+%        \lstinputlisting [language=C, 
+%        caption=Euclid’s algorithm (C).,
+%        label=lst:euclid_c,
+%        numbers=none]
+%        {ch2/assets/euclid.c}
+%    \end{minipage}
+%\end{center}
+%
+%\url{https://en.wikibooks.org/wiki/LaTeX/Algorithms}
+%
+%\begin{figure}[ht]
+%    \centering
+%    
+%    \begin{tikzpicture}
+%        % Define four points
+%        \coordinate (P0) at (0,0);
+%        \coordinate (P1) at (1,0);
+%        \coordinate (P2) at (0,1);
+%        \coordinate (P3) at (-1,0);
+%        \coordinate (P4) at (0,-1);
+%        % Draw the diamond
+%        \draw (P1)--(P2)--(P3)--(P4)--cycle;
+%    \end{tikzpicture}
+%    
+%    \caption{Using TiKZ for drawing pictures.}
+%    \label{fig:tikz}
+%\end{figure}
+%
+%\begin{figure}[ht]
+%    \centering
+%    \begin{tikzpicture} 
+%    	\begin{axis}[ height=9cm, width=9cm, grid=major, ] 
+%    		\addplot {-x^5 - 242}; 
+%    		\addlegendentry{model}
+%    		\addplot coordinates { 
+%    			(-4.77778,2027.60977) 
+%    			(-3.55556,347.84069) 
+%    			(-2.33333,22.58953) 
+%    			(-1.11111,-493.50066) 
+%    			(0.11111,46.66082) 
+%    			(1.33333,-205.56286) 
+%    			(2.55556,-341.40638) 
+%    			(3.77778,-1169.24780) 
+%    			(5.00000,-3269.56775) 
+%    		}; 
+%    		\addlegendentry{estimate} 
+%    	\end{axis} 
+%    \end{tikzpicture}
+%    \caption{Using PGFPLOTS for drawing a graph.}
+%    \label{fig:pgfplots}
+%\end{figure}
+%
+%\url{http://pgfplots.sourceforge.net/gallery.html}
+%
+%\url{http://www.texample.net/tikz/examples/}
+
+%----------------------------------------------------------------------------------------
