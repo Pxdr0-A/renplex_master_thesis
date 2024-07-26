@@ -12,3 +12,44 @@
 /main.run.xml
 /main.toc
 /refs
+
+# LaTeX intermediate and output files
+*.aux
+*.bbl
+*.blg
+*.brf
+*.dvi
+*.fdb_latexmk
+*.fls
+*.ilg
+*.idx
+*.ind
+*.lof
+*.log
+*.lot
+*.nav
+*.out
+*.snm
+*.synctex.gz
+*.synctex(busy)
+*.toc
+*.vrb
+*.xdv
+
+# Editor backup and swap files
+*~
+*.bak
+*.swp
+*.backup
+*.tmp
+
+# Compiled PDF files
+*.pdf
+
+# Folder for auto-generated files by LaTeX editors
+latex.out/
+build/
+output/
+
+/template
+/results

@@ -68,6 +68,8 @@ headsepline, % Uncomment to get a line under the header
 \usepackage{amsmath}
 \usepackage{listings}
 \usepackage{xcolor}
+\usepackage{subfigure}
+\usepackage{rotating}
 
 % Define Rust language for listings
 \lstdefinelanguage{Rust}{
@@ -113,9 +115,9 @@ headsepline, % Uncomment to get a line under the header
 %	THESIS INFORMATION
 %----------------------------------------------------------------------------------------
 
-\thesistitle{Development and Exploration of a Complex-Valued Neural Network Library.} % Your thesis title, this is used in the title, print it elsewhere with \ttitle
+\thesistitle{Development and Evaluation of a Complex-Valued Neural Network Library.} % Your thesis title, this is used in the title, print it elsewhere with \ttitle
 
-\thesissubtitle{The \file{Renplex} open-source Project} % Your thesis title, this is used in the title, print it elsewhere with \tsubtitle
+\thesissubtitle{The \href{https://github.com/Pxdr0-A/renplex.git}{\file{Renplex}} open-source Project} % Your thesis title, this is used in the title, print it elsewhere with \tsubtitle
 
 \author{Pedro Manuel Ferreira Alves} % Your name, this is used in the title page, print it elsewhere with \authorname
 
@@ -123,15 +125,18 @@ headsepline, % Uncomment to get a line under the header
 
 \subjectarea{Artificial Intelligence Engineering.} % Specialisation area, used in the title page, print it elsewhere with \areaname
 
-\supervisor{Luiz Faria} % Your supervisor's name, this is used in the title page, print it elsewhere with \supname
+\supervisor{Doutor Luiz Felipe Rocha de	 Faria, Professor Coordenador do Instituto Superior de Engenharia do Instituto Politécnico do Porto } % Your supervisor's name, this is used in the title page, print it elsewhere with \supname
 
 %\cosupervisor{{[}Nome do Co-orientador (caso exista){]}} % Your co-supervisor's name, this is used in the title page, print it elsewhere with \cosupname (comment, if no co-supervisor)
 
-\committeepresident{???, Categoria, Escola} % Name of the president of the evaluation committee, print it elsewhere with \presidentname
+\committeepresident{Doutor Carlos Fernando da Silva Ramos, Professor Coordenador Principal do Instituto Superior de Engenharia do Instituto Politécnico do Porto} % Name of the president of the evaluation committee, print it elsewhere with \presidentname
 
-\committeemembers{???, Categoria, Escola \\ ???, Categoria, Escola\\} % Name of the evaluation committee members (up to four), print it elsewhere with \committee
+\committeemembers{
+	Doutor Hugo Daniel Abreu Peixoto, Investigador Auxiliar da Universidade do Minho \\ 
+	Doutor Luiz Felipe Rocha de Faria, Professor Coordenador do Instituto Superior de Engenharia do Instituto Politécnico do Porto  \\
+} % Name of the evaluation committee members (up to four), print it elsewhere with \committee
 
-\keywords{Neural Networks, Complex Valued Neural Networks, Complex Back-propagation, Complex Activation Functions} % Please define up to 6 keywords that better describe your work, print it elsewhere with \keywordnames
+\keywords{Neural Networks, Complex-Valued Neural Networks, Complex Back-propagation, Complex Activation Functions.} % Please define up to 6 keywords that better describe your work, print it elsewhere with \keywordnames
 
 \university{\href{http://www.university.com}{Instituto Superior de Engenharia do Porto}} % Your university's name and URL, this is used in the title page and abstract, print it elsewhere with \univname
 
@@ -150,7 +155,7 @@ headsepline, % Uncomment to get a line under the header
 	\newcommand{\act}[3][2]{\mathbf{a}^{(#2)}_{#3}}
 	
 	\newcommand{\actf}[1]{g^{(#1)}}
-	\newcommand{\paf}[1]{h'^{(#1)}}
+	\newcommand{\paf}[1]{\widetilde{h}^{(#1)}}
 	\newcommand{\af}[1]{h^{(#1)}}
 	\newcommand{\loss}{\mathcal{L}}
 	\newcommand{\ploss}[3][2]{\partial\loss^{(#2)}_{#3}}
@@ -161,8 +166,8 @@ headsepline, % Uncomment to get a line under the header
 	\newcommand{\intsp}[1]{I^{(#1)}}
 	\newcommand{\outsp}[1]{O^{(#1)}}
 	
-	\newcommand{\Real}[1]{\Re\{ #1 \}}
-	\newcommand{\Imag}[1]{\Im\{ #1 \}}
+	\newcommand{\Real}[1]{\mathcal{R}\{ #1 \}}
+	\newcommand{\Imag}[1]{\mathcal{I}\{ #1 \}}
 	\newcommand{\conj}[1]{\bar{#1}}
 	
 	\newcommand{\cw}[3][2]{\conj{\mathbf{w}}^{(#2)}_{#3}}
@@ -180,6 +185,8 @@ headsepline, % Uncomment to get a line under the header
 	\newcommand{\group}[1]{\left( #1 \right)}
 	
 	\newcommand{\der}[3][2]{\dfrac{\partial #2}{\partial #3}}
+	
+	\newcommand{\sideimagewidth}{0.08\textwidth}
 	
 	
 	%----------------------------------------------------------------------------------------
@@ -213,12 +220,12 @@ headsepline, % Uncomment to get a line under the header
 	%	THESIS CONTENT - APPENDICES
 	%----------------------------------------------------------------------------------------
 	
-	\appendix % Cue to tell LaTeX that the following "chapters" are Appendices
+	%\appendix % Cue to tell LaTeX that the following "chapters" are Appendices
 	
 	% Include the appendices of the thesis as separate files from the Appendices folder
 	% Uncomment the lines as you write the Appendices
 	
-	\input{appendices/appendixA}
+	%\input{appendices/appendixA}
 	
 	%----------------------------------------------------------------------------------------
 

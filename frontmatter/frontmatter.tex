@@ -16,11 +16,9 @@
 %----------------------------------------------------------------------------------------
 %
 %\dedicatory{For/Dedicated to/To my\ldots}
-\begin{dedicatory}
-
-something...
-
-\end{dedicatory}
+%\begin{dedicatory}
+%something...
+%\end{dedicatory}
 
 %----------------------------------------------------------------------------------------
 %	ABSTRACT PAGE
@@ -28,16 +26,26 @@ something...
 
 \begin{abstract}
 
-% here you put the abstract in the main language of the work.
+Complex-Valued Neural Networks (CVNN) have shown to be a promising type of Artificial Neural Networks (ANN) when compared to its real-valued counter-parts. However, it has been a research field where authors autonomously developed and tested CVNN with no common tools or library to module them. 
 
-Abstract body text.
+This Master Thesis presents a library called Renplex capable of modulating CVNN as an open-source project for research and even for small scale applications. Although not suitable for beginners in the field of ANN or programming, the library provides a low-level interactive with Machine Learning (ML) pipeline, in order to accurately control CVNN evaluation.
+
+To test the library's core functionalities, architectures such as Complex-Valued Multi-Layer Perceptron, Auto-encoder and Convolutional Neural Network were trained. These achieved test results that outperformed their real-valued counterparts for the MNIST dataset and a synthetically generated dataset for signal reconstruction. Such improvement on performance, has been previously stated throughout literature. It consisted in greater test accuracy (or lower loss values), more stability in training, faster convergence in terms of epochs needed, greater capability of generalization, and subsequently less prone to over-fitting.
+
+This work will introduce a new tool for exploring CVNN, capable of scaling and potentially uncovering many of their hidden potentials for ML-related tasks.
 
 \end{abstract}
 
 \begin{abstractotherlanguage}
 % here you put the abstract in the "other language": English, if the work is written in Portuguese; Portuguese, if the work is written in English.
 
-Resumo em Português
+Redes Neuronais de Valores Complexos (CVNN), têm revelado ser um tipo de Rede Neuronais Artificiais (ANN) promissoras quando comparadas com Redes Neuronais de Valores Reais (RVNN). No entanto, tem sido uma àrea de estudo em que autores desenvolvem e testam CVNN sem o uso de uma ferramenta ou biblioteca em comum para as modelar.
+
+Nesta Tese de Mestrado é apresentada um biblioteca chamada Renplex, capaz de modelar CVNN, sendo este um projeto para auxiliar em estudos de investigação e desenvolvimento bem como para aplicações simples. Apesar de não ser apropriada para utilizadores inexperientes nas áreas de ANN e programação, esta biblioteca providencia uma interação de baixo-nível com o processo de Aprendizagem Automática (ML), para que CVNN sejam avaliadas com rígor.
+
+Para testar as functionalidades essenciais da biblioteca, arquiteturas como Perceptron de Multi-Camadas, Auto-Codificador e Rede Neuronal Convolucional, foram treinadas. CVNN permitiu obter melhores resultados que as RVNN para o dataset de MNIST e para um dataset gerado sintéticamente para reconstrução de sinal. Esta melhoria de resultados de teste está assente na literatura. Consistem em melhor acurácia e/ou função de perda, mais estabilidade de treino, convergência rápida (com menos épocas), melhor capacidade de generalização, e consequentemente, menos propício a um super-ajuste.
+
+Este trabalho introduz uma nova ferramenta para explorar CVNN, capaz de escalar e potencialmente desvendar uma diversidade de potencialidades relacionadas com tarefas de ML. 
 
 \end{abstractotherlanguage}
 
@@ -47,7 +55,13 @@ Resumo em Português
 
 \begin{acknowledgements}
 
-something...
+I would like to express my heartfelt appreciation to all the people, both in my academic and personal circles, who have guided and supported me on this journey.
+
+First and foremost, I am grateful to my supervisor for accepting my proposed topic of study, for overseeing my work, and for making our interactions fruitful.
+
+I extend my sincere thanks to my family for their unwavering support and constant presence. 
+
+A special thank you goes to my girlfriend and her family. Your continuous support, and encouragement, has given me the motivation to strive for excellence and become a better person and researcher.
 
 \end{acknowledgements}
 
@@ -61,11 +75,11 @@ something...
 
 \listoftables % Prints the list of tables
 
-\iflanguage{portuguese}{
-\renewcommand{\listalgorithmname}{Lista de Algor\'itmos}
-}
-\listofalgorithms % Prints the list of algorithms
-\addchaptertocentry{\listalgorithmname}
+%\iflanguage{portuguese}{
+%\renewcommand{\listalgorithmname}{Lista de Algor\'itmos}
+%}
+%\listofalgorithms % Prints the list of algorithms
+%\addchaptertocentry{\listalgorithmname}
 
 
 \renewcommand{\lstlistlistingname}{List of Source Code}
@@ -88,15 +102,15 @@ something...
 %	SYMBOLS
 %----------------------------------------------------------------------------------------
 
-\begin{symbols}{lll} % Include a list of Symbols (a three column table)
-
-$d$ & something.. & \si{\meter} \\
-
-\addlinespace % Gap to separate the Roman symbols from the Greek
-
-$\phi$ & complex phase & \si{\radian} \\
-
-\end{symbols}
+%\begin{symbols}{lll} % Include a list of Symbols (a three column table)
+%
+%$d$ & something.. & \si{\meter} \\
+%
+%\addlinespace % Gap to separate the Roman symbols from the Greek
+%
+%$\phi$ & complex phase & \si{\radian} \\
+%
+%\end{symbols}
 
 
 
